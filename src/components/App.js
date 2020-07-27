@@ -31,14 +31,7 @@ function App() {
           <Home />
         </Route>
         <Route path="/game">
-          <Game
-          // numCookies={numCookies}
-          // setNumCookies={setNumCookies}
-          // purchasedItems={purchasedItems}
-          // setPurchasedItems={setPurchasedItems}
-          // cookiesPerClick={cookiesPerClick}
-          // setcookiesPerClick={setcookiesPerClick}
-          />
+          <Game />
         </Route>
       </Router>
     </>
