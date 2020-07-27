@@ -1,23 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import useInterval from "../hooks/use-interval.hook";
 
 import GlobalStyles from "./GlobalStyles";
 import Home from "./Home";
 import Game from "./Game";
-import usePersistedState from "../hooks/use-persisted.hook";
 import items from "../data";
+import { GameContext } from "./GameContext";
 
-function App(props) {
-  const [numCookies, setNumCookies] = usePersistedState("saveNumCookies", 100);
-  const [purchasedItems, setPurchasedItems] = React.useState({
-    cursor: 0,
-    grandma: 0,
-    farm: 0,
-    megacursor: 0,
-  });
-
-  const [cookiesPerClick, setcookiesPerClick] = React.useState(1);
+function App() {
+  const { numCookies, setNumCookies, purchasedItems } = useContext(GameContext);
 
   useInterval(() => {
     const calculateCookiesPerTick = ({ cursor, grandma, farm }) => {
@@ -40,12 +32,12 @@ function App(props) {
         </Route>
         <Route path="/game">
           <Game
-            numCookies={numCookies}
-            setNumCookies={setNumCookies}
-            purchasedItems={purchasedItems}
-            setPurchasedItems={setPurchasedItems}
-            cookiesPerClick={cookiesPerClick}
-            setcookiesPerClick={setcookiesPerClick}
+          // numCookies={numCookies}
+          // setNumCookies={setNumCookies}
+          // purchasedItems={purchasedItems}
+          // setPurchasedItems={setPurchasedItems}
+          // cookiesPerClick={cookiesPerClick}
+          // setcookiesPerClick={setcookiesPerClick}
           />
         </Route>
       </Router>

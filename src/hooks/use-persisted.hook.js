@@ -1,13 +1,14 @@
 import React from "react";
 
 const usePersistedState = (storageName, startValue) => {
-  const localStored = window.localStorage.getItem(Number(storageName));
+  // window.localStorage.clear();
+  const localStored = JSON.parse(window.localStorage.getItem(storageName));
   const [storedValue, setStoredValue] = React.useState(
     localStored ? localStored : startValue
   );
 
   React.useEffect(() => {
-    window.localStorage.setItem(storageName, Number(storedValue));
+    window.localStorage.setItem(storageName, JSON.stringify(storedValue));
   }, [storedValue]);
 
   return [storedValue, setStoredValue];

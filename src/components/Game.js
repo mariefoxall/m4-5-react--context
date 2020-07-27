@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import Item from "./Item";
 
 import cookieSrc from "../cookie.svg";
+import { GameContext } from "./GameContext";
 
 import items from "../data";
 
@@ -33,20 +34,22 @@ const useDocumentTitle = (title, fallbackTitle) => {
   }, [title]);
 };
 
-const Game = ({
-  numCookies,
-  setNumCookies,
-  purchasedItems,
-  setPurchasedItems,
-  cookiesPerClick,
-  setcookiesPerClick,
-}) => {
+const Game = ({}) => {
+  const {
+    numCookies,
+    setNumCookies,
+    purchasedItems,
+    setPurchasedItems,
+    cookiesPerClick,
+    setCookiesPerClick,
+  } = useContext(GameContext);
+
   const useMegaCursor = (numMegaCursor) => {
     React.useEffect(() => {
-      setcookiesPerClick(1 + numMegaCursor * items[3].increasePerClick);
+      setCookiesPerClick(1 + numMegaCursor * items[3].increasePerClick);
 
       return () => {
-        setcookiesPerClick(cookiesPerClick);
+        setCookiesPerClick(cookiesPerClick);
       };
     }, [numMegaCursor]);
   };
@@ -76,8 +79,6 @@ const Game = ({
   //     window.removeEventListener("keydown", handleSpaceBar);
   //   };
   // });
-
- 
 
   return (
     <Wrapper>
