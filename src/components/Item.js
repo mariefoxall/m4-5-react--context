@@ -2,62 +2,64 @@ import React from "react";
 import styled from "styled-components";
 
 const Item = ({
-  index,
   name,
   cost,
-  value,
+  increasePerSecond,
+  increasePerClick,
   numOwned,
-  handleAttemptedPurchase,
+  handleClick,
+  isFirst,
 }) => {
-  const ref = React.useRef(null);
-
+  const itemRef = React.useRef(null);
   React.useEffect(() => {
-    if (index === 0) {
-      ref.current.focus();
-    }
-  }, [index]);
-
+    isFirst && itemRef.current.focus();
+  }, [isFirst]);
   return (
-    <Wrapper ref={ref} onClick={handleAttemptedPurchase}>
-      <Left>
+    <ItemWrapper ref={itemRef} onClick={() => handleClick({ cost, name })}>
+      <div>
         <Name>{name}</Name>
-        <Info>
-          Cost: {cost} cookie(s). Produces {value} cookies/second.
-        </Info>
-      </Left>
-      <Right>{numOwned}</Right>
-    </Wrapper>
+        <p>
+          {increasePerSecond > 0 &&
+            `Cost: ${cost} cookie(s). Produces ${increasePerSecond} cookies/second`}
+        </p>
+        <p>
+          {increasePerClick > 0 &&
+            `Cost: ${cost} cookie(s). Produces ${increasePerClick} cookies/click`}
+        </p>
+      </div>
+      <Count>{numOwned}</Count>
+    </ItemWrapper>
   );
 };
 
-const Wrapper = styled.button`
-  width: 100%;
+const Name = styled.div`
+  font-weight: bold;
+  font-size: 20px;
+`;
+const ItemWrapper = styled.button`
   display: flex;
-  align-items: center;
-  background: transparent;
+  background-color: #222;
+  outline: none;
+  justify-content: space-between;
   border: none;
-  border-bottom: 1px solid #444;
-  color: #fff;
-  text-align: left;
-  padding: 15px 0;
+  border-bottom: 1px solid white;
+  padding: 10px;
+  width: 100%;
+  color: white;
+
+  &:hover {
+    border: 1px solid blue;
+  }
+
+  &:focus {
+    border: 1px solid white;
+    /* background-color: grey; */
+  }
 `;
 
-const Left = styled.div`
-  flex: 1;
-`;
-
-const Name = styled.h4`
-  font-size: 22px;
-`;
-
-const Info = styled.div`
-  color: #ccc;
-  font-size: 15px;
-`;
-
-const Right = styled.div`
-  font-size: 32px;
-  padding: 0 20px;
+const Count = styled.div`
+  font-size: 24px;
+  margin-left: 20px;
 `;
 
 export default Item;
