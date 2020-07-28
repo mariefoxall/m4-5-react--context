@@ -17,6 +17,26 @@ export const GameProvider = ({ children }) => {
 
   const [cookiesPerClick, setCookiesPerClick] = React.useState(1);
 
+  React.useEffect(() => {
+    const localStored = JSON.parse(window.localStorage.getItem("timeStamp"));
+    const timeUnmounted = localStored
+      ? localStored
+      : new Date().toLocaleString();
+
+    const timeMounted = new Date().getTime();
+
+    const timeDiffMill = timeMounted - timeUnmounted;
+    const timeDiffSeconds = Math.ceil(timeDiffMill / 1000);
+    console.log("timeDiff", timeDiffSeconds);
+
+    const generatedCookiesPerSecond =
+      purchasedItems.cursor +
+      purchasedItems.grandma * 10 +
+      purchasedItems.farm * 80;
+
+    setNumCookies(numCookies + generatedCookiesPerSecond * timeDiffSeconds);
+  }, []);
+
   return (
     <GameContext.Provider
       value={{

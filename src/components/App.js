@@ -20,7 +20,12 @@ function App() {
       );
     };
     const numOfGeneratedCookies = calculateCookiesPerTick(purchasedItems);
+    window.localStorage.setItem("numOfGeneratedCookies", numOfGeneratedCookies);
     setNumCookies(numCookies + numOfGeneratedCookies);
+    window.localStorage.setItem(
+      "timeStamp",
+      JSON.stringify(new Date().getTime())
+    );
   }, 1000);
 
   return (
